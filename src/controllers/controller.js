@@ -1,4 +1,4 @@
-const Movie = require('./model')
+const Movie = require('../models/model')
 
 //get all the data in the model and return it as response
 exports.getAllMovies = async (req, res) => {
