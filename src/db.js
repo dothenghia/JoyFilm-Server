@@ -1,20 +1,15 @@
-let mongoose = require('mongoose');
-require('dotenv').config()
+const mongoose = require('mongoose');
 
-const connectDB = async () => {
+//------ Connect to MongoDB
+const connectToDB = async () => {
     try {
-        const conn = await mongoose.connect(process.env.DB_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            dbName: 'movieDB' // Thay đổi tên database thành "movieDB"
-        });
-
-        console.log(`MongoDB Connected: ${conn.connection.host}`);
-
+        mongoose.set('strictQuery', true);
+        mongoose.connect(process.env.DB_URL)
+            .then(() => console.log("mongoose Connected!"));
     } catch (error) {
-        console.error(error.message);
-        process.exit(1);
+        console.log(error);
+        console.log("mongoose Error");
     }
 }
 
-module.exports = connectDB;
+module.exports = connectToDB;

@@ -1,8 +1,6 @@
-// Requiring module
 const mongoose = require('mongoose');
 
-// Movie Modal Schema
-const MovieSchema = new mongoose.Schema({
+const moviesSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -22,8 +20,5 @@ const MovieSchema = new mongoose.Schema({
 });
 
 
-// Creating model objects
-const MovieModel = mongoose.model('movie', MovieSchema);
-
-// Exporting our model objects
-module.exports = MovieModel
+let movieModel = mongoose.model('movie', moviesSchema); // 'movies' collection
+module.exports = movieModel;
