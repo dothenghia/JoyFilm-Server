@@ -1,16 +1,23 @@
-// const connectToDB = require('../../../src/db')
 const Movie = require('./model')
 
-//get all the data in the model and return it as response
-exports.getAllMovies = async (req, res) => {
+// ------ Data for Home Screen
+exports.getHomePageMovies = async (req, res) => {
     try {
-        // await connectToDB();
-
-        const movies = await Movie.find({});
-
+        const newMovies = await Movie.find({}).limit(10);
+        const singleMovies = await Movie.find({ "type": "single", "chieurap": false }).limit(10);
+        const seriesMovies = await Movie.find({ "type": "series", "chieurap": false }).limit(10);
+        const cartoonMovies = await Movie.find({ "type": "hoathinh", "chieurap": false }).limit(10);
+        const theaterMovies = await Movie.find({ "chieurap": true }).limit(10);
+        
         res.status(200).json({
             success: true,
-            data: movies,
+            data: {
+                newMovies,
+                singleMovies,
+                seriesMovies,
+                cartoonMovies,
+                theaterMovies
+            },
         });
     } catch (error) {
         console.error(error);
@@ -19,12 +26,11 @@ exports.getAllMovies = async (req, res) => {
 }
 
 
+// ------ Data for 'Phim Moi Cap Nhat' Screen
 exports.getNewMovies = async (req, res) => {
     try {
-        // await connectToDB();
-
-        const page = parseInt(req.params.page) || 1; // Lấy giá trị của tham số "page", mặc định là 1 nếu không có.
-        const skip = (page - 1) * 24 || 0; // Số bản ghi bỏ qua để lấy trang thứ "page".
+        const page = parseInt(req.params.page) || 1;
+        const skip = (page - 1) * 24 || 0;
 
         const movies = await Movie.find({}).skip(skip).limit(24);
         
@@ -39,12 +45,11 @@ exports.getNewMovies = async (req, res) => {
 }
 
 
+// ------ Data for 'Phim Le' Screen
 exports.getSingleMovies = async (req, res) => {
     try {
-        // await connectToDB();
-
-        const page = parseInt(req.params.page) || 1; // Lấy giá trị của tham số "page", mặc định là 1 nếu không có.
-        const skip = (page - 1) * 24 || 0; // Số bản ghi bỏ qua để lấy trang thứ "page".
+        const page = parseInt(req.params.page) || 1;
+        const skip = (page - 1) * 24 || 0;
 
         const movies = await Movie.find({ "type": "single", "chieurap": false }).skip(skip).limit(24);
         
@@ -59,12 +64,11 @@ exports.getSingleMovies = async (req, res) => {
 }
 
 
+// ------ Data for 'Phim Bo' Screen
 exports.getSeriesMovies = async (req, res) => {
     try {
-        // await connectToDB();
-
-        const page = parseInt(req.params.page) || 1; // Lấy giá trị của tham số "page", mặc định là 1 nếu không có.
-        const skip = (page - 1) * 24 || 0; // Số bản ghi bỏ qua để lấy trang thứ "page".
+        const page = parseInt(req.params.page) || 1;
+        const skip = (page - 1) * 24 || 0;
 
         const movies = await Movie.find({ "type": "series", "chieurap": false }).skip(skip).limit(24);
         
@@ -79,12 +83,11 @@ exports.getSeriesMovies = async (req, res) => {
 }
 
 
+// ------ Data for 'Phim Hoat Hinh' Screen
 exports.getCartoonMovies = async (req, res) => {
     try {
-        // await connectToDB();
-
-        const page = parseInt(req.params.page) || 1; // Lấy giá trị của tham số "page", mặc định là 1 nếu không có.
-        const skip = (page - 1) * 24 || 0; // Số bản ghi bỏ qua để lấy trang thứ "page".
+        const page = parseInt(req.params.page) || 1;
+        const skip = (page - 1) * 24 || 0;
 
         const movies = await Movie.find({ "type": "hoathinh", "chieurap": false }).skip(skip).limit(24);
         
@@ -99,12 +102,11 @@ exports.getCartoonMovies = async (req, res) => {
 }
 
 
+// ------ Data for 'Phim Chieu Rap' Screen
 exports.getTheaterMovies = async (req, res) => {
     try {
-        // await connectToDB();
-
-        const page = parseInt(req.params.page) || 1; // Lấy giá trị của tham số "page", mặc định là 1 nếu không có.
-        const skip = (page - 1) * 24 || 0; // Số bản ghi bỏ qua để lấy trang thứ "page".
+        const page = parseInt(req.params.page) || 1;
+        const skip = (page - 1) * 24 || 0;
 
         const movies = await Movie.find({ "chieurap": true }).skip(skip).limit(24);
         
@@ -119,10 +121,9 @@ exports.getTheaterMovies = async (req, res) => {
 }
 
 
+// ------ 'Tim Kiem' Screen
 exports.searchMovies = async (req, res) => {
     try {
-        // await connectToDB();
-
         const { name } = req.query; // Lấy tham số "name" từ URL query string
         let movies = []
 
