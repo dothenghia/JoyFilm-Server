@@ -1,12 +1,15 @@
 //------ Imports the Express and serverless-http libraries
 const express = require('express')
 const serverless = require('serverless-http')
+const cors = require('cors');
 const router = require('./router');
 
 //------ Load environment variables from .env file
 require('dotenv').config();
 
 const app = express()
+
+app.use(cors());
 
 app.use(function (req, res, next) {
     const allowedHosts = ['joyfilm-server.netlify.app', 'localhost:8888'];
