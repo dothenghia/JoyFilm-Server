@@ -3,11 +3,11 @@ const Movie = require('./model')
 // ------ Data for Home Screen
 exports.getHomePageMovies = async (req, res) => {
     try {
-        const newMovies = await Movie.find({}).limit(10);
-        const singleMovies = await Movie.find({ "type": "single", "chieurap": false }).limit(10);
-        const seriesMovies = await Movie.find({ "type": "series", "chieurap": false }).limit(10);
-        const cartoonMovies = await Movie.find({ "type": "hoathinh", "chieurap": false }).limit(10);
-        const theaterMovies = await Movie.find({ "chieurap": true }).limit(10);
+        const newMovies = await Movie.find({}).limit(12);
+        const singleMovies = await Movie.find({ "type": "single", "chieurap": false }).limit(12);
+        const seriesMovies = await Movie.find({ "type": "series", "chieurap": false }).limit(12);
+        const cartoonMovies = await Movie.find({ "type": "hoathinh", "chieurap": false }).limit(12);
+        const theaterMovies = await Movie.find({ "chieurap": true }).limit(12);
         
         res.status(200).json({
             success: true,
@@ -32,11 +32,15 @@ exports.getNewMovies = async (req, res) => {
         const page = parseInt(req.params.page) || 1;
         const skip = (page - 1) * 24 || 0;
 
-        const movies = await Movie.find({}).skip(skip).limit(24);
+        const query = {};
+
+        const movies = await Movie.find(query).skip(skip).limit(24);
+        const totalMovies = await Movie.countDocuments(query);
         
         res.status(200).json({
             success: true,
             data: movies,
+            totalPages: Math.ceil(totalMovies / 24),
         });
     } catch (error) {
         console.error(error);
@@ -51,11 +55,15 @@ exports.getSingleMovies = async (req, res) => {
         const page = parseInt(req.params.page) || 1;
         const skip = (page - 1) * 24 || 0;
 
-        const movies = await Movie.find({ "type": "single", "chieurap": false }).skip(skip).limit(24);
-        
+        const query = { "type": "single", "chieurap": false };
+
+        const movies = await Movie.find(query).skip(skip).limit(24);
+        const totalMovies = await Movie.countDocuments(query);
+
         res.status(200).json({
             success: true,
             data: movies,
+            totalPages: Math.ceil(totalMovies / 24),
         });
     } catch (error) {
         console.error(error);
@@ -70,11 +78,15 @@ exports.getSeriesMovies = async (req, res) => {
         const page = parseInt(req.params.page) || 1;
         const skip = (page - 1) * 24 || 0;
 
-        const movies = await Movie.find({ "type": "series", "chieurap": false }).skip(skip).limit(24);
-        
+        const query = { "type": "series", "chieurap": false };
+
+        const movies = await Movie.find(query).skip(skip).limit(24);
+        const totalMovies = await Movie.countDocuments(query);
+
         res.status(200).json({
             success: true,
             data: movies,
+            totalPages: Math.ceil(totalMovies / 24),
         });
     } catch (error) {
         console.error(error);
@@ -89,11 +101,15 @@ exports.getCartoonMovies = async (req, res) => {
         const page = parseInt(req.params.page) || 1;
         const skip = (page - 1) * 24 || 0;
 
-        const movies = await Movie.find({ "type": "hoathinh", "chieurap": false }).skip(skip).limit(24);
-        
+        const query = { "type": "hoathinh", "chieurap": false };
+
+        const movies = await Movie.find(query).skip(skip).limit(24);
+        const totalMovies = await Movie.countDocuments(query);
+
         res.status(200).json({
             success: true,
             data: movies,
+            totalPages: Math.ceil(totalMovies / 24),
         });
     } catch (error) {
         console.error(error);
@@ -108,11 +124,15 @@ exports.getTheaterMovies = async (req, res) => {
         const page = parseInt(req.params.page) || 1;
         const skip = (page - 1) * 24 || 0;
 
-        const movies = await Movie.find({ "chieurap": true }).skip(skip).limit(24);
+        const query = { "chieurap": true };
+
+        const movies = await Movie.find(query).skip(skip).limit(24);
+        const totalMovies = await Movie.countDocuments(query);
         
         res.status(200).json({
             success: true,
             data: movies,
+            totalPages: Math.ceil(totalMovies / 24),
         });
     } catch (error) {
         console.error(error);
