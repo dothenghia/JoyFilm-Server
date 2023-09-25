@@ -6,9 +6,11 @@
 
 - Back-end và Front-end được phát triển theo cơ sở **MERN Stack** (MongoDB, ExpressJS, React, NodeJS).
 
-- Link Website: [JoyFilm](https://joyfilmz.vercel.app/)
+- Link Website: [JoyFilm](https://myjoyfilm.vercel.app/)
 
-- Repository Website: [JoyFilm-Web - https://github.com/dothenghia/JoyFilm-Web](https://github.com/dothenghia/JoyFilm-Web)
+- Repository Front-end (MERN Stack & NextJS): [JoyFilm - https://github.com/dothenghia/**JoyFilm**](https://github.com/dothenghia/JoyFilm)
+
+- Repository Front-end (MERN Stack): [JoyFilm-Web - https://github.com/dothenghia/**JoyFilm-Web**](https://github.com/dothenghia/JoyFilm-Web)
 
 ## 2. Tech Stack
 
