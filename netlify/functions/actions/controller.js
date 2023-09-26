@@ -3,11 +3,11 @@ const Movie = require('./model')
 // ------ Data for Home Screen
 exports.getHomePageMovies = async (req, res) => {
     try {
-        const newMovies = await Movie.find({}).limit(12);
-        const singleMovies = await Movie.find({ "type": "single", "chieurap": false }).limit(12);
-        const seriesMovies = await Movie.find({ "type": "series", "chieurap": false }).limit(12);
-        const cartoonMovies = await Movie.find({ "type": "hoathinh", "chieurap": false }).limit(12);
-        const theaterMovies = await Movie.find({ "chieurap": true }).limit(12);
+        const newMovies = await Movie.find({}).limit(10);
+        const singleMovies = await Movie.find({ "type": "single", "chieurap": false }).limit(10);
+        const seriesMovies = await Movie.find({ "type": "series", "chieurap": false }).limit(10);
+        const cartoonMovies = await Movie.find({ "type": "hoathinh", "chieurap": false }).limit(10);
+        const theaterMovies = await Movie.find({ "chieurap": true }).limit(10);
         
         res.status(200).json({
             success: true,
